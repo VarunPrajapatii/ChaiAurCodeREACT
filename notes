@@ -1,0 +1,246 @@
+React install kiya basic with vite and create-react-app. Abb cra se react heavy aata hai, pre installed node modules, testing lib vagehra. par vite se react aata hai par 
+pre installed nahi aur testing lib nhi aati toh react size mein halka hota hai...
+
+React alone doesnt work, we need to tell where i need to run my application, the versions, like react-dom, which is the connector of the react that talks to the dom in browser, 
+its a web application. We have talk to web app of the mobile as well, for that we have react-native.
+
+React is not some kind of magic that happen bts, but its not. Its just a ton of javascript which has been written by somebody else, and the lot of algorithms ehich makes the 
+manipulation in the dom much more easier and consistent, thats it, nothing more than that. React is doing nothing but helping us manipulating ui.
+
+toh html file mein apan script se js inject kara sakte like vite. ya phir create-react-app ki tarah script json se inject ho rahi hai..
+
+React looks at the picture like everything is an object, and in that object give what should be created.
+
+React mein aap function lo aur usme html return kardo aur react uss html ko render karwa dega. Toh js se html likh pa rahe hai.
+Jab aap components bana rahe hai, jo functions aap export kar rahe hai yehi components hai, inka naam capitalised hona chahiye. Component file ka naam bhi capitalised hona chahiye.
+
+Har react ek bundler use karta hai, koi babel use karta hai vit ek use karta hai, iska kaam hota hai syntax ko sudharna syntax ko aur upgrade karna, bundler syntax ko 
+convert karta hai, jsx ko tree wale object syntax mein convert kiya jaata hai.
+
+React mein React.createElement use karke object bhej sakte usme, jisme pehli valuse quotes mein tag name hogi, doosri value object hogi with key valuse pair as attributes 
+and values, aur third value quotes mein content hogi.
+
+JSX mein variables inject karne ke liye curly braces ka use karte hai. Iske andar evaluated expression likhte hai, javascript nahi likhte hai, JS ka evaluated expression 
+likhna rehta hai. Toh jab aapka saara tree ban jaata hai uske baad variables inject hote hai. Aur voh createElement wale syntax mein unn teeno ke baad comma lagake variables likh 
+sakte hai.
+Now humney avariables define kiye, unko change karne ke liye functions bhi banaye, aur unn variables ko humne JSX mein inject bhi kardiya. Now kisi event ke hote he variables 
+change bhi ho rahe hai (console log karke check bhi kiya humne), par voh ui mein change nahi ho rahe hai. Toh ui mein updations ko React control karta hai. React kuch special 
+methods deta hai jinko Hooks bolte hai, aur unn hooks ke through he data updation hoga. Kai saare hooks hote hai React mein, har ek hook ka ek speicial job hota hai.
+
+useState use kar rahe hum, issey 2 values aati hai array ke for mein lete hai hum, pehla hota hai voh variable jisme value hoti hai aur doosra hota hai function jissey hum 
+value set/change karte hai. aur useState mein hum dete hai variable ki initial value. Jaise he value set hoti hai react poora dom analyse karta hai ki kahaan kaha pe value hai jo 
+react ko update karni hai, kyuki state change ho gayi hai. State aur UI ka sync kar rahe the.
+
+
+Lets see virtual dom, fiber, reconciliation
+1. The createRoot create's its own DOM and then compare it with the web browser's DOM and only update those components which are actually updated.
+2. But the browser removes the whole DOM and then recrates the whole DOM with the updated values this is called page reload.
+3. However virtual DOM tracks whole DOM like a tree like structure and updates only those values which were only changed.
+4. But some values depends on network call so if we update a value it might get update immediately via a network call maybe one or more updates.
+5. So we will have to update it again. To avoid this overhead we can drop the updation calls for the immediate value update.
+6. The current algo used by the React is called the React Fibre algo.
+7. The algo react uses to differentiate the web browser's tree and React's tree formed through create root is called reconciliation.
+8. Reconciliation is the algo behind what popularly known as the Virtual-DOM.
+9.In UI it is not necessary for every update to be applied immediately
+
+
+https://github.com/acdlite/react-fiber-architecture
+heres a great article to know about react fiber architecture.
+
+
+
+Props component ko banata hai reusable. Like ek baar aapne card bana liya toh kyu na uss card ko component mein rakh diya jaaye aur usko baar baar use kar liya jaaye.
+
+https://www.youtube.com/watch?v=tOYkV6Yhrhs&list=PLu71SKxNbfoDqgPchmvIsL4hTnJIrtige&index=8
+a good concept explained, must go through and see...
+
+
+Phir ek project banaya PassowrdGenerator, isme kuch hooks ka use kiya useCallback, useEffect, useRef, useState.
+Ek button banaya hai copy, jo ki copy to clipboard karega password ko. 
+hum use kar rahe hai window object ka, kyuki hum react mein kaam kar rahe hai isiliye hum window object ka use kar paa rahe hai directly kyuki react compile hogi ultimately 
+javascript par aur wahaan. Par yahi cheez jab hum nextjs ke andat banayenge toh wahan pe hoti hai server side rendering, saara code execute hota hai server pe, toh server pe 
+window object nahi hota hai.
+window.navigator ke paas hota hai clipboard. in there we have option of read and writeText().
+
+
+
+phir humne doosra project banaya currencyconvertor jisme humne custom components banaye, custom hooks banan seekhe hai.
+
+
+ek cheez mein react bhhout zyada hit karta hai, agar aap jsx mein kisi cheez pe loop laga rahe hai, toh react jo dom banaye jaa raha hai, toh voh ek he element toh multiple 
+time nahi bana raha hai. Iss cheez ko rokne ke liye ek field aata hai key, hamey unique key paas karni chahiye. Toh loops use karne hai toh key ka dhyaan rakhe hamesha...
+
+Dekho components banake hum directly export kar sakte hai par dher saare components ho jaaye toh import statements bhhout zyada ho jaati hai, toh hum components mein 
+index.js banake wahan se saare components ek saath export karte hai. Ye ek tareeka hai.
+
+Humne useId hook ka bhi use dekha hai, isey use karte hai to generate unique id to pass into the accessibility attributes. Do not use useId for generating keys in a list.
+We got a uniqueId from useId hook and we used it to bind the label and input tags.
+
+
+
+Then we are making a project for learning react router dom. We have initialized initial files and installed react-router-dom. Then we will use the components provided by 
+sir on github as it is. 
+You will see there in a Navlink className mein callback pass kiya jaa raha hai, aur classes backticks mein likhi hui hai. Call back ki classes ko manipulate kaise karna hai, 
+jub bhi hum className likhte Navlink mein toh callback ke andar access hota hai ek variable ka, isActive, toh issey pata chalta hai ki hum jis page pe hai voh active page 
+hai ki nahi , agar hai toh hum css changes kar sakte hai. see code to understand this.
+
+
+Now we get Link and Navlink from react-router-dom. Link we use in place of <a> tag, isey use karte hai toh hamara page poora refresh hota hai toh react ki zaroorat he kya, 
+thatswhy we use Link instead of <a> tag. Link mein href ki jagah "to" likhte hai.
+
+Abb hamey route banane hai toh uske liye hum use karte hai <App /> ki jagah <RouterProvider /> ka, jo ki router lete hai as a prop. voh hum banate hai CreateBrowserRouter 
+se. Toh usme humey ek array pass karna hota hai jisme har path aur element ka object hota hai, children bhi add karte hai hum yahaan. Toh hum ya toh eaisa kar sakte hai hum 
+Header har component mein call karayenge Home mein , about Us mein contact mein ya toh hum optimized tareeka use kare, ki hum ek Layout ya Route file banaye usme component 
+banake Header aur Footer banaye aur beech mein dynamically cheezein pass kar du. For that we use Outlet given by react-router-dom. Now hum main.jsx mein jaake Layout 
+daal rahe hai aur hum phir uske children bana rahe hai. See code...
+
+Ek aur tareeka dekha humne main.jsx mein routes ko banane ka ki thoda readable lag sakta hai, toh check it out.
+Then we have seen how to take params through link. just use : and valiable name in at routing.
+Uske baad humne banaya Github page jisme API fetch ki. Route mein path aur element ke alawa ek aur property hai loader. Api wagehra fetch karna hai toh hum direct api 
+calls loader mein he maar sakte hai. Issey optimization kuch iss tareeke se hota hai ki jaise he lets say aap header se kisi page pe jaa rahe hai toh jaise he curser waha 
+pe le jaate hai toh voh event ho chuka hai, toh usi event pe voh api calls kar dega aur, data fetching pehle he shuru ho jaegi, useEffect se bhi pehle. Aur ek baar fetch 
+ho jaata hai toh usey cache mein bhi rakh leta hai ye.
+Toh humne pehle ek function banaya jisme fetch kiya data phir ek useLoaderData hook use kiya. Aur routes mein bhejne ke liye loader use karna hai aur usme voh function jo 
+fetch ke liye banaya voh bhejna rahega.
+
+
+Now lets see context API. So ek component banate hai usko kuch prop bhejna kisi doosre component mein. Ab voh component kisi component ke andar hai aur voh kisi aur component 
+ke andar hai aur voh kisi aur ke andar toh humey component to component bhejna padega. jabki beech mein jo components aa rahe hai unko toh uss prop ka kaam he nahi hai. 
+But phir bhi prop drilling karni padegi. Kyu na ek eaisi common space ho global mein ki bhejne wala component usme bheje aur use karne wala component directly uss space se 
+prop le le. Toh prop drilling ki samasya se bach sakte hai. Toh is ke liye Redux use karte hai apan, Redux ka kaam hota hai state manage karna, matlab jo data idhar udhar 
+pass ho raha hai usko sahi se manage karne ka kaam karta hai redux. Infact Redux ka easier version hai market mein Redux-Toolkit (RTK). 
+
+
+Sabse pehle context banate hai kisika, like for user, React.createContext ki help se. Phir hum jaise react fragment banate hai wrapper, waise he hum apne app ke components 
+ki wrap kara denge UserContext se toh ye bann jaega ek provider. Toh wrapper ke andar jo bhi component hai usko global UserContext ke through saari global states ka access 
+mil jaega. Now UserContext banane ke baad hamey ek provider bhi banana padhta hai. Provider ek simple function hai jsime UserContext ko wrap karna rehta hai. Wrap karte hai 
+jo bhi context banaya hai usme .Provider lagake. Ye function ek simple variable leta hai jisme components hote hai jinko aapko wrap karna hai. Eg. isko children naam de diya 
+aur wrapper mein children daal denge. Now ye wrapper ek prop bhi leta hai named value, usme objedt pass karte hai jisme jo chahe uska access de sakte hai. See:-
+const UserContextProvider = ({children}) => {
+    return (
+        <UserContext.Provider vlaue={{user, setUser}}>
+            {children}
+        </UserContext.Provider>
+    )
+}
+
+
+Ye bangaya hamara store, iss store ka access kaise milega, kuch log store ka access main mein de dete hai, kuch log app.jsx mein de dete hai.
+Abb data send karne ke liye, jis component se send karna hai uss component mein eg. ye setUser access kar lenge.
+const {setUser} = useContext(UserContext);
+
+Abb jahaan use karna hai data ko waha par user ka use karlenge
+const {user} = useContext(UserContext);
+
+
+One more syntactical way you can see in the code project contextAPI practice project.
+createContext ko, jab aapka context banega, initial state hogi, toh waha pe bhi hum koi value de sakte hai. Context pehli baar bane toh usme kya kya values initailly feed ho. 
+Here we have given some initial values in project, in theme.js. Usi file mein provider banake export bhi kardiya humne.
+Ek custom hook bhi banaya humne ki jisme useContext bhi usi mein use kardiya. Uske baad app.jsx aur ThemeBtn.js mein jo bhi kiya hai code check karo ek baar.
+Aur ek baat, humne theme.js mein context banaya toh createContext mein kuch functions likhe the, toh uss time pe khali naam diya tha, Par humne functionalities nahi define ki 
+thi. Voh humne app.jsx mein kiya tha. Toh properties likhte hum context mein aur functionalities likhte, par unhe define nahi karte hai.
+
+Aur haan tailwind se ek functionality aati hai html se class dark ya light add kar sakte ho. Uske liye tailwind config karna mat bhoolna, tailwind.config.js mein jaake 
+darkMode: "class" karna bhhout zaroori hai.
+
+
+Iske baad ek ToDo application banaya humne. Usme context banaya todo ka, phir uski functionalities app.jsx mein define kari hai.
+Abb hum dekhenge how to use local storage of browser.
+We use setItem and getItem from localStorage, when setItem we use key value pair, and when getItem we just need to say the key name and we get the value. And alse remember 
+that local storage mein se jo values milegi humey woh string mein hogi, aur hamey json mein parse karna padega. Aur humey set karte waqt bhi string mein rakhna hoga data ko 
+toh hum use karte hai stringify method.
+
+
+
+
+Lets see Redux
+Redux ek alag cheez hai aur react-redux ek alag cheez hai, redux core lib hai aur react-redux uska implementation hai taaki react aur redux ki aapas mein baat ho sake. Abb 
+reduxtoolkit jab hum use karte hai toh kaafi kaam hamare ho chuke hote hai.
+Jaise humne dekha tha react aur react-dom apne aap mein alag libraries hai. Vaise he Redux ek state management library hai. Aur redux ko react mein implement karne ke liye 
+react-redux mil jaata hai. Toh redux ko use karna hai toh redux aur react-redux dono chahiye rahenge. Humne contextAPI use kiya, usme bhi data flow itna strong nahi hai jitna 
+redux mein hai, jaise humne dekha tha ki array ki values ko spread kar rahe the hum naya todo add karne ke liye, varna hum poori value miss ho jaati. Par ye sab apne aap ho jaaye 
+toh isiliye data flow pe dhyaan diya gaya. Ye saari terms aayi jab redux aaya tha ki single source of truth hona chahiye, matlab ek he store hona chahiye. State ko sirf read only 
+hona chahiye, you should never modify your state, you should never mutate your state, and changes should be made through functions only jinko hum reducers bolte hai, directly koi 
+bhi changes nahi hona chahiye. Redux ko aur behtar banaya gaya aur phir aaya redux-toolkit. Redux mein configurations zyada hoti thi par toolkit maein nahi, slicing introduce kiya 
+toolkit mein.
+Ek store banayenge global space type se, aur waha se sab cheezein lenge. Reducer, aapko store mein kuch bhi change karna hai voh functionality wala part reducers hota hai. Then 
+there is useSelector jab koi value select karni hai store se, and useDispatch jab koi value bhejni hai store mein.
+
+Now we are making a todo application with redux. We initialise project with vite, then we make store with configureStore({}). Uske baad humne features banaya jiske andar todo banaya 
+jiske andar todoSlice.js banaya. Usme hum slice banayenge createSlice ki help se. createSlice ek object leta hai ya array leta hai, humne object bheja jisme humey yeh properties 
+name initialState aur reducers banani he padhti hai. Name slice ka phir har slice ka ek initial state hota hai aur reducers jisme key function pair jaise property aur function declare 
+karna hota hai. Function bhale he upar delcare kara ho waha pe reference pass kar diya ho. Abb ye function me yaad rakhna hamesha do cheezein milegi state aur action. state batayega 
+abhi initialState banaya vaise abhi uss state ke andar kya kya values hai unka access dega. Ab kuch values jo aapke paas aaye voh action dega. action mein payload mein aati hai values 
+jo bheji jaati hai, payload apne aap mein ek object hai. Toh humne reducers mein addTodo banaya. jisme state (state voh object hai jo humne initialState mein define kiya) toh humen 
+initialState mein array banaya toh humne state se push kardiya.
+Abb humey slice ko export karna he padega aur store mein lena padega. Aur humey export const {} karke sabhi functionalities ko bhi export karna padega kyuki hum inko components mein 
+use karne wale honge.
+useDispatch reducer ko use karte huey store mein values mein changes karta hai.
+Selector use karne ke liye useSelector ka use karte hai aur ussey store ka access mil jaata hai.
+const todos = useSelector(state => state.todos)
+
+Ab ye sab toh ho gaya coding. Ab use karne ke liye components app.jsx ya main.jsx mein call kiya aur contextAPI ki tarah wrapper lagana hoga. Toh we import Provider aur store. 
+Toh Provider se wrap karte hai aur store={store} bhejte hai wrapper mein.
+
+
+
+
+
+So we have seen :
+1. Create Store - single source of truth
+it has configureStore
+introduce reducer
+
+2. Create Slice(functions) method(createSlice)
+Slice has name, initialState, reducers :{key: function}
+Access of two things (State, action)
+state = state value in the store
+action = action.payload 
+export individual functionality 
+export main source export
+
+3. Add Todo - Give values to State i.e Dispatch Courier  = use method useDispatch()
+ dispatch(addTodo())
+
+4. Take Values - useSelector((state) =>state.todos) state ka access chaiye
+variable me values lelo ek baar aagaie uske baad pure JS concept hai 
+
+
+
+
+
+
+Abb hum banayenge mega project BlogApp_React
+Toh humne vite se react app banaya, dependencies install ki @reduxjs/toolkit, @tinymce/tinymce-react, appwrite, html-react-parser, react-hook-form, react-redux, react-router-dom.
+Environment variables kyu chahiye?, dekho abb aapki application mein client id, secret honge, id pass ho sakte hai, keys, voh hum react mein use akrenge toh problem ho sakti hai, 
+kyuki react front end lib hai, jo bhi yaha pe likha jaata hai voh js se ship hota hai browser pe, isiliye kuch vars system vars banaye jaate hai, toh unko handle karne ka aur 
+rakhne ka tareeka alag hota hai, aur jab production pe deploy karte hai (vercel netlify appwrite) tab, voh services mein unka ek secret manager hota hai vaha humey ye variables 
+dene hote hai. Abb hum react project mein jaise access karte hai aur vars rakhte hai vaise he deploy ke baad ussey access karte hai. Abb ye accessibility depende karti hai 
+framework pe jaise create-react-app vite nextjs... 
+Jab bhi env variables banaye voh project ke root mein honey chahiye. .env file banate hai aur usey .gitignore mein bhi likh do.
+Now agar hamney create-react-app se banaya project toh REACT_APP_ ke baad variable name likh ke define karna hota hai, aur access process.env. karke karte hai.
+Agar vite se banaya project toh VITE_ aur variable ka naam, eaise env variables ke naam likhne hote hai. Aur access import.meta.env. karke karte hai.
+abb import.meta.env.VITE_ eaise ho sakta hai ki env varible load he na ho. Toh waha pe poori application he crash ho jaati hai. Aur kai baar uska error dhoondna mushkil ho jaata 
+hai. Env variable saara string mein treat hona chahiye. Toh humne conf ke andar conf.js ke andar key value pairs ko export karenge. Toh key hogi variable ka naam aur value hogi 
+String mein convert kara hua voh env variable.
+Appwrite aims to reduce vendor lock-in by being open-source, Appwrite ko use karne ke liye uske documentation mein jaake setup dekho. Toh waha par client aur accout wagehra use 
+karne ke baare mein likha hai. Abb kyuki hamey Appwrite pe dependency nahi rakhni hai toh humne ek class banayi aur uska object banake export kardiya, aur jab bhi kisi ko 
+appwrite se kuch call karna rahega toh object dot lagake use karega. Issey hamare application ko kabhi service change karni rahi toh asaani rahegi.
+Toh documents dekhke database configurations aur authentication banayi. Jisko kahin meine copy karke rakh bhi liya, taaki kahin aur koi project banana ho aappwrite se toh vohi 
+content utha ke use kar lenge asaan rahega.
+Abb baari hai react-redux use karne ki. Toh store banaya aur authSlice banayi.
+Now you see login mein do input field aur ek submit button hai. Toh input ko state variable mein store karo aur submit pe dispatch kara do values ya direct services se method 
+lo aur email pass daal denge aur send kara denge. We know this much.
+But adhiktar production grade mein jo input field hota hai usey alag se ek component banaya jaata hai, aur isko prop related banaya jaata hai ki kya label kya placeholder kaisi 
+styling, iss tarah se banaya jaata hai taaki ye har jagah kaam aajaye. Toh ye component based design hai common hai react apps mein.
+
+React.forwardRef hook ka example hai ki hum login form bana rahe, usme input field hai jiska component banaya humne jo hum har jagah use kar raha hai. Par jaha pe ye input hoga waha 
+pe uska state variable banayenge, toh component kahin aur hai use kahin ho raha hai, par component jaha bana hai uski state wahin honi chahiye thi, par state hum form wale page mein 
+bana rahe toh uska referance dena padega component ke andar toh waha use hota hai forwardReference. aur uss component mein ek ref bhi bhejte hai hum. Phir isko bhi input mein ref = 
+mein pass karte hai kyuki yehi voh cheez hai jo parent component ko reference degi.
+Toh humne Button, Input, Select, PostCard bana liya.
+
+Abb lets use React hook form. Toh hum banayenge Login component Sign in component aur phir AuthLayout, RTE real time editor PostrCard...
+
+Using React Hook Form (RHF) versus managing form state with regular state variables has several differences: Utilizes uncontrolled components, reducing re-renders. Efficient for 
+large forms due to minimal state updates. Simplifies form validation and submission. Reduces boilerplate code compared to managing state manually.
